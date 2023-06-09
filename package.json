@@ -409,7 +409,7 @@
   "scripts": {
     "style": "jslint",
     "test": "jest",
-    "build": "parcel build"
+    "build": "parcel build src/index.html"
   },
   "repository": {
     "type": "git",
