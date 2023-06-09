@@ -10,6 +10,11 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -90,13 +95,12 @@ jobs:
         
       # Create artifact
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-pages-artifact@v1.0.8
         with:
           # Artifact name
           name: github-pages
-          path: dist
+          path: ./dist
           retention-days: 2
-          if-no-files-found: error
         
   deploy:
     needs: build
