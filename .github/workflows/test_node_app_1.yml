@@ -36,4 +36,4 @@ jobs:
           
        # Run the syntax test
       - name: Run the syntax test
-        run: jest
+        run: npx jest
