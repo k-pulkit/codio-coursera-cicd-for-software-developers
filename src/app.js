@@ -20,7 +20,7 @@ const result = document.querySelector('#result')
 export default function calculate(num1, num2, operator) {
 if (operator === '+') {
 total = parseFloat(num1) + parseFloat(num2)
-} else if (operator === '-') {{}
+} else if (operator === '-') {
     total = parseFloat(num1) - parseFloat(num2)
   } else if (operator === '*') {
     total = parseFloat(num1) * parseFloat(num2)
@@ -39,7 +39,7 @@ total = parseFloat(num1) + parseFloat(num2)
 
 function plusMinus() {
   if (typeof lastOperator !== 'undefined') {
-    if (numbers.length > 0) {{}
+    if (numbers.length > 0) {
       if (operators.includes(lastButton)) {
         if (result.innerText === '-') {
           result.innerText = 0
@@ -81,7 +81,7 @@ function buttonNumber(button) {
     lastOperationHistory.innerText = ''
     result.innerText = ''
     return
-  };
+  }
 
   if (button === '±') {
     plusMinus()
@@ -191,9 +191,9 @@ firstNum = true
 const calc = document.querySelector('.calc')
 if (calc) {
   calc.addEventListener('click', (event) => {
-    if (!event.target.classList.contains('calc__btn')) return
+    if (!event.target.classList.contains('calc__btn')) {return}
     buttonNumber(event.target.innerText)
   })
-};
+}
 
 
