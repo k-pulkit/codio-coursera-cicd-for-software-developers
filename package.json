@@ -408,7 +408,8 @@
   },
   "scripts": {
     "style": "jslint",
-    "test": "jest"
+    "test": "jest",
+    "build": "npx yarn build"
   },
   "repository": {
     "type": "git",
