@@ -26,7 +26,9 @@ jobs:
       
       # Setup NPM env
       - name: Setup Node.js environment
-        uses: actions/setup-node@v16.16.0
+        uses: actions/setup-node@v2.5.2
+        with:
+          version: 16.16.0
       
       # Get the NPM packages
       - name: Get the NPM packages
