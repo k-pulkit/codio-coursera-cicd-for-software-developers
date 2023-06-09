@@ -32,10 +32,58 @@ jobs:
       
       # Get the NPM packages
       - name: Get the NPM packages
-        run: npm install
+        run: |
+          npm install
+          npm install yarn
+          npm install parcel
           
-       # Run the syntax test
+      # Cache the node_modules dir in cache
+      - name: Cache node_modules
+        uses: actions/cache@v1.2.1
+        with:
+          # A directory to store and save the cache
+          path: ./node_modules
+          # An explicit key for restoring and saving the cache
+          key: node_modules
+
+      # Run the syntax test
       - name: Run the syntax test
         run: |          
           npm install --save-dev jest-environment-jsdom
           npx jest __tests__/calc.test.js
+          
+  build:
+    name: Building stage
+    runs-on: ubuntu-latest
+    needs: test-npm
+    
+    # Steps
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Setup NPM env
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          version: 16.16.0
+          
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: node_modules
+        
+      # Get the NPM packages, as a refresh only
+      - name: Install dependencies
+        run: npx yarn
+          
+      # Build command
+      - name: Build
+        run: npx yarn build
+      
+          
+          
+          
+      
+      
