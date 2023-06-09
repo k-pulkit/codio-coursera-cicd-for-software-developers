@@ -39,7 +39,7 @@ jobs:
           
       # Cache the node_modules dir in cache
       - name: Cache node_modules
-        uses: actions/cache@v1.2.1
+        uses: actions/cache/save@v1.2.1
         with:
           # A directory to store and save the cache
           path: ./node_modules
@@ -69,7 +69,7 @@ jobs:
           version: 16.16.0
           
       - name: Restore node_modules from cache
-        uses: actions/cache@v2
+        uses: actions/cache/restore@v2
         with:
           path: ./node_modules
           key: node_modules
@@ -82,6 +82,15 @@ jobs:
       - name: Build
         run: npx yarn build
       
+      # Create artifact
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          # Artifact name
+          name: calculator_app
+          path: dist
+          retention-days: 2
+          if-no-files-found: error
           
           
           
