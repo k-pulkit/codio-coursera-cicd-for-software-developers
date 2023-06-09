@@ -1,5 +1,6 @@
 {
-  "name": "exampleapp",
+  "homepage": "https://k-pulkit.github.io/codio-coursera-cicd-for-software-developers/",
+  "name": "calculator",
   "version": "1.0.0",
   "description": "Repository to learn and practice CI/CD processes using Github workflows, as guided in Coursera Course https://www.coursera.org/learn/codio-cicd-for-software-developers/",
   "dependencies": {
@@ -403,22 +404,37 @@
     "eslint": "^8.40.0",
     "eslint-plugin-react": "^7.32.2",
     "jest-environment-jsdom": "^29.5.0",
-    "parcel": "^2.0.0-rc.0"
+    "parcel": "^2.0.0-rc.0",
+    "gh-pages": "^3.1.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "build": "npx parcel build src/index.html",
+    "preview": "npx parcel src/index.html",
     "style": "jslint",
-    "test": "jest",
-    "build": "npx parcel build src/index.html"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codio-content/ci-cd-sample-app-v1.git"
+    "url": "git+https://github.io/codio-coursera-cicd-for-software-developers.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/codio-content/ci-cd-sample-app-v1/issues"
+    "url": "https://github.io/codio-coursera-cicd-for-software-developers/issues"
   },
-  "homepage": "https://github.com/codio-content/ci-cd-sample-app-v1#readme"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
