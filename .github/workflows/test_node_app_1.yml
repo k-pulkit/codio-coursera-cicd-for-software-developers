@@ -39,7 +39,8 @@ jobs:
           
       # Cache the node_modules dir in cache
       - name: Cache node_modules
-        uses: actions/cache/save@v1.2.1
+        uses: actions/cache/save@v3
+        id: cache
         with:
           # A directory to store and save the cache
           path: ./node_modules
@@ -69,7 +70,8 @@ jobs:
           version: 16.16.0
           
       - name: Restore node_modules from cache
-        uses: actions/cache/restore@v2
+        uses: actions/cache/restore@v3
+        id: cache
         with:
           path: ./node_modules
           key: node_modules
