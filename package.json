@@ -409,7 +409,7 @@
   "scripts": {
     "style": "jslint",
     "test": "jest",
-    "build": "npx yarn build"
+    "build": "parcel build"
   },
   "repository": {
     "type": "git",
