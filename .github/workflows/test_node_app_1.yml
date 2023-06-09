@@ -36,4 +36,6 @@ jobs:
           
        # Run the syntax test
       - name: Run the syntax test
-        run: npx jest
+        run: |          
+          npm install --save-dev jest-environment-jsdom
+          npx jest __tests__/calc.test.js
