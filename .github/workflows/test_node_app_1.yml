@@ -51,7 +51,7 @@ jobs:
       # Cache the node_modules dir in cache
       - name: Cache node_modules
         uses: actions/cache/save@v3
-        id: cache
+        id: cache-restore
         with:
           # A directory to store and save the cache
           path: ./node_modules
@@ -82,6 +82,13 @@ jobs:
         uses: actions/setup-node@v2.5.2
         with:
           version: 16.16.0
+          
+      - name: Restore node_modules from cache
+        uses: actions/cache/restore@v3
+        id: cache-restore
+        with:
+          path: ./node_modules
+          key: node_modules
         
       # Get the NPM packages, as a refresh only
       - name: Install dependencies
