@@ -108,6 +108,8 @@ jobs:
 
       # Publish to github pages
       - name: Publish to gh-branch
+        env:
+          GH_TOKEN: ${{ SECRETS.GITHUB_TOKEN }}
         run: npm run deploy
 
       # Cleanup
