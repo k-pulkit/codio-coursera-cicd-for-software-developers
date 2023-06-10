@@ -53,9 +53,7 @@ jobs:
 
       # Run the syntax test
       - name: Run the syntax test
-        run: |          
-          npm install --save-dev jest-environment-jsdom
-          npx jest __tests__/calc.test.js
+        run: npx jest __tests__/calc.test.js
           
   build:
     name: Build and Publish
@@ -100,6 +98,12 @@ jobs:
           name: github-pages
           path: ./dist
           retention-days: 2
+
+      - name: setup git authentication 
+        run: |
+          git config --global user.email "${{ vars.EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git remote set-url origin https://${{ github.actor }}:${{ SECRETS.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
       # Publish to github pages
       - name: Publish to gh-branch
