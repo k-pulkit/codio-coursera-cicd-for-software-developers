@@ -411,7 +411,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "npx parcel build src/index.html",
+    "build": "npx parcel build src/index.html --public-url /codio-coursera-cicd-for-software-developers/",
     "preview": "npx parcel src/index.html --public-url /codio-coursera-cicd-for-software-developers/",
     "style": "jslint",
     "test": "jest"
