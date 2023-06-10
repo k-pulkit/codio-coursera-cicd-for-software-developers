@@ -82,13 +82,6 @@ jobs:
         uses: actions/setup-node@v2.5.2
         with:
           version: 16.16.0
-          
-      - name: Restore node_modules from cache
-        uses: actions/cache/restore@v3
-        id: cache
-        with:
-          path: ./node_modules
-          key: node_modules
         
       # Get the NPM packages, as a refresh only
       - name: Install dependencies
