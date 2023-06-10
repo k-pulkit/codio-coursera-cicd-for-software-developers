@@ -1,0 +1,119 @@
+# This is a basic workflow to help you get started with Actions
+
+name: NPM Test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main", "workflow_test*" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "test-npm"
+  test-npm:
+    name: Syntax test NPM
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Setup NPM env
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          version: 16.16.0
+
+      - name: Restore node_modules from cache
+        uses: actions/cache/restore@v3
+        id: cache
+        with:
+          path: ./node_modules
+          key: node_modules
+      
+      # Get the NPM packages
+      - name: Get the NPM packages
+        run: |
+          npm install
+          npm install parcel
+          
+      # Cache the node_modules dir in cache
+      - name: Cache node_modules
+        uses: actions/cache/save@v3
+        id: cache-restore
+        with:
+          # A directory to store and save the cache
+          path: ./node_modules
+          # An explicit key for restoring and saving the cache
+          key: node_modules
+
+      # Run the syntax test
+      - name: Run the syntax test
+        run: npx jest __tests__/calc.test.js
+          
+  build:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+    needs: test-npm
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      contents: write
+    
+    # Steps
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Setup NPM env
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          version: 16.16.0
+          
+      - name: Restore node_modules from cache
+        uses: actions/cache/restore@v3
+        id: cache-restore
+        with:
+          path: ./node_modules
+          key: node_modules
+        
+      # Get the NPM packages, as a refresh only
+      - name: Install dependencies
+        run: npm install
+          
+      # Build command
+      - name: Build
+        run: npm run build
+        
+      # Create artifact
+      - name: Upload a Build Artifact
+        uses: actions/upload-pages-artifact@v1.0.8
+        with:
+          # Artifact name
+          name: github-pages
+          path: ./dist
+          retention-days: 2
+
+      # Publish to github pages
+      - name: Publish to gh-branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+      # Cleanup
+      - name: Cleanup
+        run: rm -r dist
+        
