@@ -67,7 +67,7 @@ jobs:
       
       # Remove dist directory 
       - name: Remove dist
-        run: rm -r dist
+        run: rm -r dist 2> /dev/null
       
       # Setup NPM env
       - name: Setup Node.js environment
